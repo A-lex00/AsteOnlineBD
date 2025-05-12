@@ -9,5 +9,7 @@
 
 /---------------------------------INTERVISTA 2 -----------------------------------------------------------------------------------/
 1)  Le categorie presenti nel sistema sono predeterminate oppure gli amministratori possono sceglierla? Come si deve comportare il sistema qualora un amministratore volesse aggiungere  prodotti che non appartengono alle categorie attualmente presenti?  
-2) Ma l'amministratore è un utente registrato oppure è già presente nel sistema? Se no, come vengono aggiunti al sistema?
-3) 
+
+
+2) Ma l'amministratore è un utente registrato oppure è già presente nel sistema? Altrimenti, come vengono aggiunti al sistema? Qualora fosse un utente registrato, quale sono le informazioni caratterizzanti?
+
