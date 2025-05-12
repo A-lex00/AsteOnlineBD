@@ -1,2 +1,13 @@
-Per cosa si intende titolario gerarchico? Com'è organizzato? In base a che criterio sono costruiti i vari livelli?
-Se gli amministratori non decidono la durata dell'asta, c'è una durata di default?
+-L'asta è specifica per un oggetto? Oppure un asta contiene più oggetti?
+  L'asta è specifica per un oggetto
+-Cosa si intende per categoria?
+  Una categoria in cui ricade un oggetto (es: Cellulare per un Pixel 9a)
+-Per cosa si intende titolario gerarchico? Com'è organizzato? In base a che criterio sono costruiti i vari livelli?
+  È un albero, stile "breadcrumbs" (es: Elettronica > Cellulari > Smartphon)
+-Se gli amministratori non decidono la durata dell'asta, c'è una durata standard?
+  La durata deve essere scelta obbligatoriamente.
+
+/---------------------------------INTERVISTA 2 -----------------------------------------------------------------------------------/
+1)  Le categorie presenti nel sistema sono predeterminate oppure gli amministratori possono sceglierla? Come si deve comportare il sistema qualora un amministratore volesse aggiungere  prodotti che non appartengono alle categorie attualmente presenti?  
+2) Ma l'amministratore è un utente registrato oppure è già presente nel sistema? Se no, come vengono aggiunti al sistema?
+3) 
