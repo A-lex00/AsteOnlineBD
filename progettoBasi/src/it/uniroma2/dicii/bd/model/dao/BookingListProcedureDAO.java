@@ -1,19 +1,18 @@
 package it.uniroma2.dicii.bd.model.dao;
 
 import it.uniroma2.dicii.bd.exception.DAOException;
-import it.uniroma2.dicii.bd.model.domain.BookingFlight;
-import it.uniroma2.dicii.bd.model.domain.BookingList;
+import it.uniroma2.dicii.bd.model.domain.OggettoInVendita;
 import it.uniroma2.dicii.bd.model.domain.Passenger;
 
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.sql.*;
 
-public class BookingListProcedureDAO implements GenericProcedureDAO<BookingList> {
+public class creaOggettoInVendita implements GenericProcedureDAO<BookingList> {
 
     @Override
-    public BookingList execute(Object... params) throws DAOException {
-        BookingList bookingList = new BookingList();
+    public creaOggettoInVendita execute(Object... params) throws DAOException {
+        OggettoInVendita bookingList = new BookingList();
 
         try {
             Connection conn = ConnectionFactory.getConnection();

@@ -3,16 +3,16 @@ package it.uniroma2.dicii.bd.view;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class UtenteView {
+public class ClienteView {
 
     public static int showMenu() throws IOException {
         System.out.println("*********************************");
-        System.out.println("*     AGENCY AUCTIONS DASHBOARD    *");
+        System.out.println("*    AUCTIONS AGENCY DASHBOARD    *");
         System.out.println("*********************************\n");
-        System.out.println("*** What should I do for you? ***\n");
-        System.out.println("1) Book flight");
-        System.out.println("2) Booking list");
-        System.out.println("3) List flights");
+        System.out.println("*** Seleziona un comando ***\n");
+        System.out.println("1) Vedi aste aperte");
+        System.out.println("2) Vedi aste in corso");
+        System.out.println("3) Vedi oggetti acquistati");
         System.out.println("4) Quit");
 
 

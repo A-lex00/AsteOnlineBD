@@ -18,8 +18,8 @@ public class ConnectionFactory {
             properties.load(input);
 
             String connection_url = properties.getProperty("CONNECTION_URL");
-            String user = properties.getProperty("LOGIN_USER");
-            String pass = properties.getProperty("LOGIN_PASS");
+            String user = properties.getProperty("CLIENTE_USER");
+            String pass = properties.getProperty("CLIENTE_PASS");
 
             connection = DriverManager.getConnection(connection_url, user, pass);
         } catch (IOException | SQLException e) {

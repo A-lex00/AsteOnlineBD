@@ -1,8 +1,8 @@
 package it.uniroma2.dicii.bd.model.domain;
 
 public enum Role {
-    cliente(1),
-    amministratore(2);
+    AMMINISTRATORE(1),
+    CLIENTE(2);
 
     private final int id;
 
