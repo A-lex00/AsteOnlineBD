@@ -6,3 +6,9 @@ utente
 mario.rossi
 Pa$$w0rdSicura!
 	
+dbms
+utente_asta
+1234Basi
+
+admin_asta
+Basi4321
