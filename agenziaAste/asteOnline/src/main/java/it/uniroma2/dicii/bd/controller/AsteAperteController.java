@@ -3,23 +3,22 @@ package it.uniroma2.dicii.bd.controller;
 import it.uniroma2.dicii.bd.exception.DAOException;
 import it.uniroma2.dicii.bd.model.dao.GenericProcedureDAO;
 import it.uniroma2.dicii.bd.model.dao.VisualizzaAsteDAO;
-import it.uniroma2.dicii.bd.model.dao.VisuallizzaAsteInCorso;
-import it.uniroma2.dicii.bd.model.domain.Cliente;
 import it.uniroma2.dicii.bd.model.domain.ListaOggetti;
 import it.uniroma2.dicii.bd.model.domain.OggettoInAsta;
+
+import java.sql.SQLException;
 
 public class AsteAperteController {
 
         private GenericProcedureDAO<ListaOggetti> visualizzaAsteDAO;
 
         public AsteAperteController() {
-            this.visualizzaAsteDAO = VisualizzaAsteDAO.getInstance();
+            this.visualizzaAsteDAO = VisualizzaAsteDAO.getVisualizzaAsteDAO();
         }
 
         public void start() {
             try {
 
-                // Esegue la procedura DAO per ottenere la lista degli oggetti in asta
                 ListaOggetti asteAperte = visualizzaAsteDAO.execute();
 
                 if (asteAperte != null && !asteAperte.getList().isEmpty()) {
@@ -42,11 +41,10 @@ public class AsteAperteController {
                 } else {
                     System.out.println("Non ci sono aste aperte ");
                 }
-
             } catch (DAOException e) {
-                System.err.println("Errore durante il recupero delle aste in corso: " + e.getMessage());
-            } catch (Exception e) {
-                System.err.println("Si è verificato un errore inaspettato: " + e.getMessage());
+                System.err.println("Errore durante il recupero delle aste in corso ");
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
         }
     }

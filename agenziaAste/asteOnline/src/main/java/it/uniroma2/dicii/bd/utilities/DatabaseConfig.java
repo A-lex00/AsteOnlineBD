@@ -11,27 +11,13 @@ public class DatabaseConfig {
         static {
             try (InputStream input = DatabaseConfig.class.getClassLoader().getResourceAsStream(CONFIG_FILE)) {
                 if (input == null) {
-                    System.err.println("Spiacente, impossibile trovare " + CONFIG_FILE + " nel classpath.");
-                    throw new IOException("File di configurazione del database non trovato: " + CONFIG_FILE);
+                    throw new IOException("File di configurazione del database non trovato");
                 }
                 properties.load(input);
             } catch (IOException ex) {
-                System.err.println("Errore durante il caricamento del file di configurazione del database: " + ex.getMessage());
-                // Esempio per fermare l'applicazione se la configurazione è critica
                 throw new ExceptionInInitializerError("Impossibile caricare la configurazione del database.");
             }
         }
 
-        public static String getDbUrl() {
-            return properties.getProperty("db.url");
-        }
-
-        public static String getDbUsername() {
-            return properties.getProperty("db.username");
-        }
-
-        public static String getDbPassword() {
-            return properties.getProperty("db.password");
-        }
     }
 

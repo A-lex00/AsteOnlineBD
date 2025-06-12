@@ -1,5 +1,6 @@
 package it.uniroma2.dicii.bd.view;
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,7 +8,7 @@ import java.io.InputStreamReader;
 public class AmministratoreView {
 
     private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    public static int showMenu() throws IOException {
+    public static int mostra() throws IOException {
        System.out.println("****************************************");
        System.out.println("*  AUCTIONS AGENCY DASHBOARD : ADMIN   *");
        System.out.println("****************************************\n");
@@ -41,11 +42,11 @@ public class AmministratoreView {
         System.out.println("\nBenvenuto nella dashboard amministratore, " + username + "!");
     }
 
-    public static void displayLogoutMessage() {
+    public static void messaggioArrivederci() {
         System.out.println("Effettuato il logout. Arrivederci!");
     }
 
-    public static void displayGenericError(String message) {
+    public static void messaggioErrore(String message) {
         System.err.println("Errore: " + message);
     }
 
@@ -58,4 +59,9 @@ public class AmministratoreView {
             System.err.println("Errore durante la chiusura delle risorse di input: " + e.getMessage());
         }
     }
+
+    public static void displayMessage(String s) {
+        System.out.print(s);
+    }
+
 }

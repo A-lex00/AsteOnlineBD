@@ -8,20 +8,20 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
+
 
 public class VisualizzaAsteDAO implements GenericProcedureDAO<ListaOggetti>{
 
-    private static VisualizzaAsteDAO instance = null;
+    private static VisualizzaAsteDAO visualizzaAsteDAO = null;
 
     public VisualizzaAsteDAO(){}
 
-    public static VisualizzaAsteDAO getInstance(){
-        if(instance == null){
-            instance = new VisualizzaAsteDAO();
+    public static VisualizzaAsteDAO getVisualizzaAsteDAO(){
+        if(visualizzaAsteDAO == null){
+            visualizzaAsteDAO = new VisualizzaAsteDAO();
         }
 
-        return instance;
+        return visualizzaAsteDAO;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class VisualizzaAsteDAO implements GenericProcedureDAO<ListaOggetti>{
                 }
             }
         } catch (SQLException sqlException) {
-            throw new DAOException("Errore lista oggetti: " + sqlException.getMessage());
+            throw new DAOException("Errore lista oggetti ");
         }
         return listaOggetti;
     }

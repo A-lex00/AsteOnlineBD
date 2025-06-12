@@ -2,7 +2,7 @@ package it.uniroma2.dicii.bd.view;
 
 import java.util.Scanner;
 
-public class ApplicationView {
+public class MenuView {
 
     public static int showApplicationView(){
         System.out.println("ASTE ONLINE");
@@ -25,11 +25,8 @@ public class ApplicationView {
         return choice;
     }
 
-    public static void printError(Exception e){
-        System.out.println(e.getMessage());
-    }
 
-    public static void displayMessage(String s) {
+    public static void mostraMessaggio(String s) {
         System.out.println(s);
     }
 }

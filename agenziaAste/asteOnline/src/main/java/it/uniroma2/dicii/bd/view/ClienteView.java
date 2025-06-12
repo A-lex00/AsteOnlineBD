@@ -9,7 +9,7 @@ public class ClienteView {
 
     private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    public static int showMenu() throws IOException {
+    public static int mostra() throws IOException {
         System.out.println("****************************************");
         System.out.println("* AUCTIONS AGENCY DASHBOARD: CLIENTE   *");
         System.out.println("****************************************\n");
@@ -42,15 +42,15 @@ public class ClienteView {
         return choice;
     }
 
-    public static void displayWelcomeMessage(String username) {
+    public static void messaggioBenvenuto(String username) {
         System.out.println("\nBenvenuto nella dashboard cliente, " + username + "!");
     }
 
-    public static void displayLogoutMessage() {
+    public static void messaggioArrivederci() {
         System.out.println("Effettuato il logout. Arrivederci!");
     }
 
-    public static void displayGenericError(String message) {
+    public static void mostraErrore(String message) {
         System.err.println("Errore: " + message);
     }
 
@@ -60,7 +60,7 @@ public class ClienteView {
                 reader.close();
             }
         } catch (IOException e) {
-            System.err.println("Errore durante la chiusura delle risorse di input: " + e.getMessage());
+            System.err.println("Errore durante la chiusura delle risorse di input: " );
         }
     }
 }

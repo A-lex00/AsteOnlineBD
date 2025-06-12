@@ -8,7 +8,7 @@ import java.util.List;
 public class CategoriaMenuView {
     private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        public static void displayHeader() {
+        public static void mostra() {
             System.out.println("\n--- Creazione Nuova Categoria ---");
         }
 
@@ -32,7 +32,7 @@ public class CategoriaMenuView {
             String macrocategoria = reader.readLine().trim();
 
             if (!macrocategoria.isEmpty() && !macrocategorieDisponibili.contains(macrocategoria)) {
-                System.out.println("AVVISO: La macrocategoria '" + macrocategoria + "' non esiste tra quelle caricate. Assicurati che esista nel DB. Procedo comunque...");
+                System.out.println("AVVISO: La macrocategoria '" + macrocategoria + "' non esiste tra quelle caricate.");
             }
 
             return new DatiNuovaCategoriaInput(nomeCategoria, macrocategoria);

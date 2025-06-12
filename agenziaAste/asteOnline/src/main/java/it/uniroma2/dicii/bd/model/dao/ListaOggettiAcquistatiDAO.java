@@ -10,15 +10,15 @@ import java.sql.SQLException;
 
 public class ListaOggettiAcquistatiDAO implements GenericProcedureDAO<ListaOggetti>{
 
-    private static ListaOggettiAcquistatiDAO instance = null;
+    private static ListaOggettiAcquistatiDAO listaOggettiAcquistatiDAO = null;
     private ListaOggettiAcquistatiDAO(){}
 
-    public static ListaOggettiAcquistatiDAO getInstance(){
-        if(instance == null){
-            instance = new ListaOggettiAcquistatiDAO();
+    public static ListaOggettiAcquistatiDAO getListaOggettiAcquistatiDAO(){
+        if(listaOggettiAcquistatiDAO == null){
+            listaOggettiAcquistatiDAO = new ListaOggettiAcquistatiDAO();
         }
 
-        return instance;
+        return listaOggettiAcquistatiDAO;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class ListaOggettiAcquistatiDAO implements GenericProcedureDAO<ListaOgget
 
             Connection connection = ConnectionFactory.getConnection();
             CallableStatement cs = connection.prepareCall("{call visualizza_oggetti_aggiudicati(?)}");
-            cs.setString(1, cliente.getNomeUtente());
+            cs.setString(1, cliente.getUsername());
             boolean flag = cs.execute();
             if(flag){
 
@@ -45,15 +45,12 @@ public class ListaOggettiAcquistatiDAO implements GenericProcedureDAO<ListaOgget
                     oggettoInAsta.setLarghezza(rs.getDouble(5));
                     oggettoInAsta.setStatoAsta(rs.getString(6));
                     listaOggetti.addOggettoInAsta(oggettoInAsta);
-
                 }
-
             }
 
         } catch (SQLException sqlException) {
-            throw new DAOException("Errore in lista degli oggetti acquistati: " + sqlException.getMessage());
+            throw new DAOException("Errore in lista degli oggetti acquistati");
         }
-
         return  listaOggetti;
     }
 

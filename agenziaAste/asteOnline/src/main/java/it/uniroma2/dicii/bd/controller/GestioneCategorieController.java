@@ -25,11 +25,11 @@ public class GestioneCategorieController implements Controller {
 
     @Override
     public void start() {
-        CategoriaMenuView.displayHeader();
+        CategoriaMenuView.mostra();
 
         try {
             ListaCategorie categorieEsistenti = categoriaDAO.execute();
-            List<String> macrocategorieDisponibili = categorieEsistenti.getList().stream()
+            List<String> macrocategorieDisponibili = categorieEsistenti.getLista().stream()
                     .map(Categoria::getNome)
                     .collect(Collectors.toList());
 
@@ -44,23 +44,17 @@ public class GestioneCategorieController implements Controller {
             }
 
             if (successoCreazione) {
-                CategoriaMenuView.displaySuccess("Categoria '" + datiInput.getNomeCategoria() + "' creata con successo!");
+                CategoriaMenuView.displaySuccess("Categoria  creata con successo!");
             } else {
-                CategoriaMenuView.displayError("Creazione categoria fallita. La categoria potrebbe essere già esistente o la macrocategoria non valida.");
+                CategoriaMenuView.displayError("Creazione categoria fallita.");
             }
 
         } catch (IOException e) {
-            CategoriaMenuView.displayError("Errore di I/O durante la gestione delle categorie: " + e.getMessage());
-            e.printStackTrace();
+            CategoriaMenuView.displayError("Errore di Input durante la gestione delle categorie");
         } catch (IllegalArgumentException e) {
-            CategoriaMenuView.displayError("Dati categoria non validi: " + e.getMessage());
-            e.printStackTrace();
+            CategoriaMenuView.displayError("Dati categoria non validi GestioneCategorie");
         } catch (DAOException e) {
-            CategoriaMenuView.displayError("Errore database durante la gestione delle categorie: " + e.getMessage());
-            e.printStackTrace();
-        } catch (Exception e) {
-            CategoriaMenuView.displayError("Si è verificato un errore inatteso: " + e.getMessage());
-            e.printStackTrace();
+            CategoriaMenuView.displayError("Errore database durante la gestione delle categorie");
         }
     }
 }

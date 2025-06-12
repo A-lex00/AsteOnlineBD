@@ -6,9 +6,6 @@ public class Amministratore {
 
     private String password;
 
-    public Amministratore(){
-
-    }
 
     public Amministratore(String username, String password){
         this.username = username;

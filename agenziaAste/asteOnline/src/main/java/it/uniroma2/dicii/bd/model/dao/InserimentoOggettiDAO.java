@@ -9,16 +9,16 @@ import java.sql.SQLException;
 
 public class InserimentoOggettiDAO implements GenericProcedureDAO<Boolean>{
 
-    private static InserimentoOggettiDAO instance = null;
+    private static InserimentoOggettiDAO inserimentoOggettiDAO = null;
 
     private InserimentoOggettiDAO(){}
 
-    public static InserimentoOggettiDAO getInstance(){
-        if(instance == null){
-            instance = new InserimentoOggettiDAO();
+    public static InserimentoOggettiDAO getInserimentoOggettiDAO(){
+        if(inserimentoOggettiDAO == null){
+            inserimentoOggettiDAO = new InserimentoOggettiDAO();
         }
 
-        return instance;
+        return inserimentoOggettiDAO;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class InserimentoOggettiDAO implements GenericProcedureDAO<Boolean>{
             cs.execute();
 
         } catch (SQLException sqlException) {
-            throw new DAOException("Errore nell'inserimento dell'oggetto : " + sqlException.getMessage());
+            throw new DAOException("Errore nell'inserimento dell'oggetto ");
         }
         return true;
     }

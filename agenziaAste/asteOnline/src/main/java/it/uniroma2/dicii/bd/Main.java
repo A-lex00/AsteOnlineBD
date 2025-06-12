@@ -23,7 +23,6 @@ import it.uniroma2.dicii.bd.controller.Orchestrator;
 
 public class Main {
 
-    // Qui potresti avere il metodo main per lanciare l'applicazione
     public static void main(String[] args) {
         Orchestrator orchestrator = new Orchestrator();
         orchestrator.start();

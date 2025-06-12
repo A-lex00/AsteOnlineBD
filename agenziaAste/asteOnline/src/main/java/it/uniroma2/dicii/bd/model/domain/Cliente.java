@@ -13,7 +13,7 @@ public class Cliente {
     private  String cittàNascita;
     private java.sql.Date dataNascita;
 
-    private  String nomeUtente;
+    private  String username;
 
     private  String via;
 
@@ -31,14 +31,17 @@ public class Cliente {
 
     private List<OggettoInAsta> oggettiPosseduti;
 
-    public Cliente(String nome, String cognome, String cf, String cittàNascita, String password, Date dataNascita, String username, String via, String cap, String città, String civico, String cvv, String numeroCarta, Date dataScadenza) {
+    public Cliente(String nome, String cognome, String cf, String cittàNascita,
+                   String password, Date dataNascita, String username,
+                   String via, String cap, String città, String civico,
+                   String cvv, String numeroCarta, Date dataScadenza) {
         this.nome = nome;
         this.cognome = cognome;
         this.cf = cf;
         this.cittàNascita = cittàNascita;
         this.password = password;
         this.dataNascita = dataNascita;
-        this.nomeUtente = username;
+        this.username = username;
         this.via = via;
         this.cap = cap;
         this.civico = civico;
@@ -91,8 +94,8 @@ public class Cliente {
             this.dataNascita = dataNascita;
     }
 
-    public String getNomeUtente() {
-        return nomeUtente;
+    public String getUsername() {
+        return username;
     }
 
     public String getVia() {
@@ -156,7 +159,7 @@ public class Cliente {
                 this.getCittàNascita() + " " + this.getNumeroCarta() + " " +
                 this.getDataScadenza() + " " + this.getCVV() + " " +
                 this.getVia() + " " + this.getCittà() + " " +
-                this.getCAP() + " " + this.getNomeUtente() + " " +
+                this.getCAP() + " " + this.getUsername() + " " +
                 this.getPassword() + " " + this.getCivico());
 
         return null;
@@ -169,8 +172,8 @@ public class Cliente {
         this.cittàNascita = cittàNascita;
     }
 
-    public void setNomeUtente(String nomeUtente) {
-        this.nomeUtente = nomeUtente;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setVia(String via) {

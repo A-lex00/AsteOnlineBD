@@ -6,15 +6,15 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 public class CreaCategoriaDAO implements GenericProcedureDAO<Boolean>{
-    private static CreaCategoriaDAO instance = null;
+    private static CreaCategoriaDAO creaCategoriaDAO = null;
 
     private CreaCategoriaDAO() {}
 
-    public static CreaCategoriaDAO getInstance() {
-        if (instance == null) {
-            instance = new CreaCategoriaDAO();
+    public static CreaCategoriaDAO getCreaCategoriaDAO() {
+        if (creaCategoriaDAO == null) {
+            creaCategoriaDAO = new CreaCategoriaDAO();
         }
-        return instance;
+        return creaCategoriaDAO;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class CreaCategoriaDAO implements GenericProcedureDAO<Boolean>{
         try {
             connection = ConnectionFactory.getConnection();
             String nomeCategoria;
-            String macroCategoria = null; // Inizializzato a null per indicare l'assenza di macrocategoria
+            String macroCategoria = null;
             String callSql;
 
             if (params.length == 1 && params[0] instanceof String && !((String)params[0]).trim().isEmpty()) {
@@ -37,7 +37,7 @@ public class CreaCategoriaDAO implements GenericProcedureDAO<Boolean>{
                 macroCategoria = ((String) params[1]).trim();
                 callSql = "{call crea_categoria_con_macrocategoria(?,?)}";
             } else {
-                throw new IllegalArgumentException("Parametri non validi per CreaCategoriaDAO. Attesi (String nomeCategoria) o (String nomeCategoria, String macroCategoria). I nomi non possono essere vuoti.");
+                throw new IllegalArgumentException("Parametri non validi ");
             }
 
             cs = connection.prepareCall(callSql);
@@ -51,15 +51,14 @@ public class CreaCategoriaDAO implements GenericProcedureDAO<Boolean>{
             return true;
 
         } catch (SQLException sqlException) {
-            System.err.println("SQLState: " + sqlException.getSQLState());
-            System.err.println("Error Code: " + sqlException.getErrorCode());
+            System.err.println("Errore SQLState CreaCategoriaDAO " );
 
             if (sqlException.getSQLState() != null && sqlException.getSQLState().startsWith("45")) {
-                throw new DAOException("Errore nella creazione della categoria: " + sqlException.getMessage(), sqlException);
+                throw new DAOException("Errore nella creazione della categoria " );
             }
-            throw new DAOException("Errore SQL durante la creazione della categoria: " + sqlException.getMessage(), sqlException);
+            throw new DAOException("Errore SQL durante la creazione della categoria" );
         } catch (IllegalArgumentException e) {
-            throw new DAOException("Errore di input nella creazione della categoria: " + e.getMessage(), e);
+            throw new DAOException("Errore di input nella creazione della categoria" );
         }
     }
 }

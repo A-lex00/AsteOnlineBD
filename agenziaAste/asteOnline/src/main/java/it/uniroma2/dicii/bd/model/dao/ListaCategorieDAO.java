@@ -11,16 +11,16 @@ import java.sql.SQLException;
 
 public class ListaCategorieDAO implements GenericProcedureDAO<ListaCategorie>{
 
-    private static ListaCategorieDAO instance = null;
+    private static ListaCategorieDAO listaCategorieDAO = null;
 
     private ListaCategorieDAO(){}
 
-    public static ListaCategorieDAO getInstance(){
-        if(instance == null){
-            instance = new ListaCategorieDAO();
+    public static ListaCategorieDAO getListaCategorieDAO(){
+        if(listaCategorieDAO == null){
+            listaCategorieDAO = new ListaCategorieDAO();
         }
 
-        return instance;
+        return listaCategorieDAO;
     }
 
     @Override

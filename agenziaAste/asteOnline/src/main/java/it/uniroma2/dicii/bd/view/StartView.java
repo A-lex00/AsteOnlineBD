@@ -27,7 +27,7 @@ public class StartView {
                     if (choice >= 0 && choice <= 2) {
                         validInput = true;
                     } else {
-                        System.out.println("Scelta non valida. Inserisci 1 per Cliente, 2 per Amministratore o 0 per uscire.");
+                        System.out.println("Scelta non valida. Inserisci 1 per Cliente, 2 per Amministratore, 0 per uscire.");
                     }
                 } catch (NumberFormatException e) {
                     System.out.println("Input non valido. Inserisci un numero.");

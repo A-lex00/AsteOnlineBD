@@ -13,7 +13,6 @@ public class RegistrazioneAmmView {
         private String username;
         private String password;
 
-        // Getter
         public String getUsername() {
             return username;
         }
@@ -22,7 +21,6 @@ public class RegistrazioneAmmView {
             return password;
         }
 
-        // Setter (usati internamente dalla view per impostare i valori)
         public void setUsername(String username) {
             this.username = username;
         }
@@ -32,7 +30,7 @@ public class RegistrazioneAmmView {
         }
     }
 
-    public static void displayHeader() {
+    public static void mostra() {
         System.out.println("\n--- REGISTRAZIONE NUOVO AMMINISTRATORE ---");
         System.out.println("Inserisci le credenziali per il nuovo account amministratore.");
     }
@@ -57,15 +55,13 @@ public class RegistrazioneAmmView {
         return dati;
     }
 
-    public static void displaySuccess(String message) {
+    public static void messaggioSuccesso(String message) {
         System.out.println("\n" + message);
     }
 
-    public static void displayError(String message) {
+    public static void mostraErrore(String message) {
         System.err.println("ERRORE: " + message);
     }
 
-    public static void displayMessage(String message) {
-        System.out.println(message);
-    }
+
 }

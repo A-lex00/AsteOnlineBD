@@ -18,27 +18,23 @@ public class MostraCategorieController implements Controller {
 
     @Override
     public void start() {
-        AmministratoreView.displayGenericError("--- Elenco Categorie Esistenti ---"); // Puoi usare una view più specifica se ce l'hai
+        AmministratoreView.displayMessage("--- Elenco Categorie Esistenti ---\n");
 
         try {
-            ListaCategorie categorie = categoriaDAO.execute(); // Recupera tutte le categorie
+            ListaCategorie categorie = categoriaDAO.execute();
 
             if (categorie.isEmpty()) {
-                AmministratoreView.displayGenericError("Nessuna categoria trovata nel sistema.");
+                AmministratoreView.messaggioErrore("Nessuna categoria trovata nel sistema.");
             } else {
                 int i = 1;
-                for (Categoria cat : categorie.getList()) {
-                    System.out.println(i++ + ") " + cat.toString()); // Utilizza il toString() della Categoria
+                for (Categoria cat : categorie.getLista()) {
+                    System.out.println(i++ + ") " + cat.toString());
                 }
             }
             System.out.println("-------------------------------------\n");
 
         } catch (DAOException e) {
-            AmministratoreView.displayGenericError("Errore database durante il recupero delle categorie: " + e.getMessage());
-            e.printStackTrace();
-        } catch (Exception e) { // Catch all per errori imprevisti
-            AmministratoreView.displayGenericError("Si è verificato un errore inatteso durante la visualizzazione delle categorie: " + e.getMessage());
-            e.printStackTrace();
+            AmministratoreView.messaggioErrore("Errore database durante il recupero delle categorie ");
         }
     }
 }

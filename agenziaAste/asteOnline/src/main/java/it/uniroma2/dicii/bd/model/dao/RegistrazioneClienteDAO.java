@@ -9,14 +9,14 @@ import java.sql.SQLException;
 
 public class RegistrazioneClienteDAO implements GenericProcedureDAO<Boolean>{
 
-    private static RegistrazioneClienteDAO registerDAO = null;
+    private static RegistrazioneClienteDAO registrazioneClienteDAO = null;
     public RegistrazioneClienteDAO(){}
 
     public static RegistrazioneClienteDAO getInstance(){
-        if(registerDAO == null){
-            registerDAO = new RegistrazioneClienteDAO();
+        if(registrazioneClienteDAO == null){
+            registrazioneClienteDAO = new RegistrazioneClienteDAO();
         }
-        return registerDAO;
+        return registrazioneClienteDAO;
     }
 
     @Override
@@ -39,14 +39,13 @@ public class RegistrazioneClienteDAO implements GenericProcedureDAO<Boolean>{
             cs.setString(10, cliente.getVia());
             cs.setString(11, cliente.getCittà());
             cs.setString(12, cliente.getCAP());
-            cs.setString(13, cliente.getNomeUtente());
+            cs.setString(13, cliente.getUsername());
             cs.setString(14, cliente.getCivico());
             cs.executeQuery();
 
         }catch (SQLException e){
-            throw new DAOException("Errore nella registrazione Cliente: " + e.getMessage());
+            throw new DAOException("Errore nella registrazione Cliente ");
         }
-
         return true;
     }
 

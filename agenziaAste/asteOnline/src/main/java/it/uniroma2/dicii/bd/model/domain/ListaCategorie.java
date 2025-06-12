@@ -5,32 +5,33 @@ import java.util.List;
 
 public class ListaCategorie {
 
-    List<Categoria> list = new ArrayList<>();
+    List<Categoria> lista = new ArrayList<>();
 
-    public int getSize(){
-        return list.size();
-    }
-
-    public List<Categoria> getList(){
-        return this.list;
+    public List<Categoria> getLista(){
+        return this.lista;
     }
 
     public void addOggettoCategoria(Categoria categoria){
-        this.list.add(categoria);
+        this.lista.add(categoria);
     }
 
     @Override
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder();
-        for(Categoria categoria : list){
+        for(Categoria categoria : lista){
             stringBuilder.append(categoria);
         }
         return stringBuilder.toString();
     }
-
-
+    public boolean check(String stringa) {
+        for (Categoria cat : lista) {
+            if (cat.getNome() == stringa) {
+                return true;
+            }
+        }
+        return false;
+    }
     public boolean isEmpty() {
-            return list.isEmpty(); // Delega la chiamata al metodo isEmpty() della List interna
-
+            return lista.isEmpty();
     }
 }

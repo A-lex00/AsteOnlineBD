@@ -10,20 +10,18 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class VisuallizzaAsteInCorso implements GenericProcedureDAO<ListaOggetti>{
+public class VisuallizzaAsteInCorsoDAO implements GenericProcedureDAO<ListaOggetti>{
 
-    private static VisuallizzaAsteInCorso instance = null;
+    private static VisuallizzaAsteInCorsoDAO visuallizzaAsteInCorsoDAO = null;
 
-    private VisuallizzaAsteInCorso(){}
+    private VisuallizzaAsteInCorsoDAO(){}
 
-    public static VisuallizzaAsteInCorso getInstance(){
-        if(instance == null){
-            instance = new VisuallizzaAsteInCorso();
+    public static VisuallizzaAsteInCorsoDAO getVisuallizzaAsteInCorsoDAO(){
+        if(visuallizzaAsteInCorsoDAO == null){
+            visuallizzaAsteInCorsoDAO = new VisuallizzaAsteInCorsoDAO();
         }
-
-        return instance;
+        return visuallizzaAsteInCorsoDAO;
     }
-
     @Override
     public ListaOggetti execute(Object... params) throws DAOException{
         ListaOggetti listaOggetti = new ListaOggetti();
@@ -32,7 +30,7 @@ public class VisuallizzaAsteInCorso implements GenericProcedureDAO<ListaOggetti>
 
             Connection connection = ConnectionFactory.getConnection();
             CallableStatement cs = connection.prepareCall("{call visualizza_asta_in_corso(?)}");
-            cs.setString(1, cliente.getNomeUtente());
+            cs.setString(1, cliente.getUsername());
             boolean flag = cs.execute();
             if(flag){
 
@@ -56,7 +54,7 @@ public class VisuallizzaAsteInCorso implements GenericProcedureDAO<ListaOggetti>
                 }
             }
         } catch (SQLException sqlException) {
-            throw new DAOException("Errore lista oggetti in asta con offerte: " + sqlException.getMessage());
+            throw new DAOException("Errore lista oggetti in asta con offerte ");
         }
         return listaOggetti;
     }

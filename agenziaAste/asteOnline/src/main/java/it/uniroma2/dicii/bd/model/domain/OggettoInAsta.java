@@ -32,7 +32,9 @@ public class OggettoInAsta {
     private double importoOffertaMassima;
     private int durata;
     private String proprietario;
-    public OggettoInAsta(Timestamp inizioAsta, int durata, String descrizione, double prezzoBase, double altezza, double lunghezza, double larghezza, String stato, String categoria, String proprietario, double offertaMassima,String codice) {
+    public OggettoInAsta(Timestamp inizioAsta, int durata, String descrizione, double prezzoBase,
+                         double altezza, double lunghezza, double larghezza, String stato, String categoria
+                         , String proprietario, double offertaMassima,String codice) {
     }
     public OggettoInAsta(){}
     public Date getInizioAsta() {
@@ -90,7 +92,7 @@ public class OggettoInAsta {
 
 
     public void setCodice(String codice){
-        this.codice = codice; // tecnicamente non la uso perchè il codice è relativo al DB
+        this.codice = codice;
     }
     public void setDescrizione(String descrizione){
             this.descrizione = descrizione;

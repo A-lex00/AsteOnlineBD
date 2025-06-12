@@ -2,8 +2,8 @@ package it.uniroma2.dicii.bd.controller;
 
 import it.uniroma2.dicii.bd.exception.DAOException;
 import it.uniroma2.dicii.bd.model.dao.RegistrazioneAmministratoreDAO;
-import it.uniroma2.dicii.bd.model.domain.Credentials;
-import it.uniroma2.dicii.bd.model.domain.Role;
+import it.uniroma2.dicii.bd.model.domain.Credenziali;
+import it.uniroma2.dicii.bd.model.domain.Ruolo;
 import it.uniroma2.dicii.bd.view.RegistrazioneAmmView;
 import java.io.IOException;
 import it.uniroma2.dicii.bd.view.RegistrazioneAmmView.DatiRegistrazioneInput;
@@ -13,7 +13,7 @@ import it.uniroma2.dicii.bd.view.RegistrazioneAmmView.DatiRegistrazioneInput;
 public class RegistrazioneAmministratoreController implements Controller {
 
         private final RegistrazioneAmministratoreDAO registrazioneAmministratoreDAO;
-        private Credentials registratoCredentials;
+        private Credenziali registratoCredenziali;
 
         public RegistrazioneAmministratoreController(RegistrazioneAmministratoreDAO registrazioneAmministratoreDAO) {
 
@@ -22,46 +22,36 @@ public class RegistrazioneAmministratoreController implements Controller {
 
         @Override
         public void start() {
-            RegistrazioneAmmView.displayHeader();
-            this.registratoCredentials = null;
+            RegistrazioneAmmView.mostra();
+            this.registratoCredenziali = null;
 
             try {
-
                 DatiRegistrazioneInput datiInput = RegistrazioneAmmView.getDatiRegistrazione();
 
 
-                Credentials nuoveCredenziali = new Credentials(datiInput.getUsername(), datiInput.getPassword(), Role.AMMINISTRATORE);
+                Credenziali nuoveCredenziali = new Credenziali(datiInput.getUsername(), datiInput.getPassword(), Ruolo.AMMINISTRATORE);
 
 
-                Boolean successoRegistrazione = registrazioneAmministratoreDAO.execute(nuoveCredenziali);
+                Boolean flag = registrazioneAmministratoreDAO.execute(nuoveCredenziali);
 
-                if (successoRegistrazione != null && successoRegistrazione) {
-                    RegistrazioneAmmView.displaySuccess("Amministratore '" + nuoveCredenziali.getUsername() + "' registrato con successo!");
-                    this.registratoCredentials = nuoveCredenziali;
+                if (flag != null && flag) {
+                    RegistrazioneAmmView.messaggioSuccesso("Amministratore  registrato con successo!");
+                    this.registratoCredenziali = nuoveCredenziali;
                 } else {
-                    RegistrazioneAmmView.displayError("Registrazione amministratore fallita. L'username potrebbe essere già in uso o altro errore logico.");
+                    RegistrazioneAmmView.mostraErrore("Registrazione amministratore fallita.");
                 }
 
             } catch (IOException e) {
-
-                RegistrazioneAmmView.displayError("Errore di I/O durante la registrazione: " + e.getMessage());
-                e.printStackTrace(); // Stampa lo stack trace per il debug
+                RegistrazioneAmmView.mostraErrore("Errore di I/O durante la registrazione ");
             } catch (IllegalArgumentException e) {
-                RegistrazioneAmmView.displayError("Dati di registrazione non validi: " + e.getMessage());
-                e.printStackTrace();
+                RegistrazioneAmmView.mostraErrore("Dati  non validi ");
             } catch (DAOException e) {
-
-                RegistrazioneAmmView.displayError("Errore database durante la registrazione dell'amministratore: " + e.getMessage());
-                e.printStackTrace();
-            } catch (Exception e) {
-
-                RegistrazioneAmmView.displayError("Si è verificato un errore inatteso: " + e.getMessage());
-                e.printStackTrace();
+                RegistrazioneAmmView.mostraErrore("Errore database durante la registrazione dell'amministratore " );
             }
 
         }
 
-        public Credentials getRegisteredCredentials() {
-            return this.registratoCredentials;
+        public Credenziali getCredenzialiRegistrate() {
+            return this.registratoCredenziali;
         }
     }

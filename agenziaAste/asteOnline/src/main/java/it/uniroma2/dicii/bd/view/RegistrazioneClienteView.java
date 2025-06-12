@@ -1,8 +1,8 @@
 package it.uniroma2.dicii.bd.view;
 
 import it.uniroma2.dicii.bd.model.domain.Cliente;
-import it.uniroma2.dicii.bd.model.domain.Credentials;
-import it.uniroma2.dicii.bd.model.domain.Role;
+import it.uniroma2.dicii.bd.model.domain.Credenziali;
+import it.uniroma2.dicii.bd.model.domain.Ruolo;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,8 +12,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ClienteRegistrationView {
-        public static Credentials register() throws IOException{
+public class RegistrazioneClienteView {
+        public static Credenziali registra() throws IOException{
+
+            System.out.println("--- MODULO DI REGISTRAZIONE ---");
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Inserisci un username: ");
@@ -21,10 +23,10 @@ public class ClienteRegistrationView {
             System.out.println("Inserisci una password: ");
             String password = reader.readLine();
 
-            return new Credentials(nomeUtente, password, Role.CLIENTE);
+            return new Credenziali(nomeUtente, password, Ruolo.CLIENTE);
         }
 
-        public static Cliente setUserInfo(Credentials credentials) throws IOException {
+        public static Cliente setUserInfo(Credenziali credenziali) throws IOException {
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Inserisci il codice fiscale: ");
@@ -39,7 +41,7 @@ public class ClienteRegistrationView {
             try {
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 dateFormat.setLenient(false);
-                System.out.println("Inserisci la tua data di nascita: [yyyy-mm-dd]");
+                System.out.println("Inserisci la tua data di nascita: [anno-mese-giorno]");
                 Date date = dateFormat.parse(reader.readLine());
                 dataNascita = new java.sql.Date(date.getTime());
             } catch (ParseException e) {
@@ -58,7 +60,7 @@ public class ClienteRegistrationView {
             try {
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 dateFormat.setLenient(false);
-                System.out.println("Inserisci la data di scadenza della carta di credito: [yyyy-mm-dd]");
+                System.out.println("Inserisci la data di scadenza della carta di credito: [anno-mese-giorno]");
                 Date date = dateFormat.parse(reader.readLine());
                 dataScadenza = new java.sql.Date(date.getTime());
             } catch (ParseException e) {
@@ -84,9 +86,9 @@ public class ClienteRegistrationView {
                     cognome,
                     cf,
                     cittàNascita,
-                    credentials.getPassword(),
+                    credenziali.getPassword(),
                     dataNascita,
-                    credentials.getUsername(),
+                    credenziali.getUsername(),
                     via,
                     cap,
                     città,

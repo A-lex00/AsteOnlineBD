@@ -1,5 +1,6 @@
 package it.uniroma2.dicii.bd.view;
 
+import it.uniroma2.dicii.bd.model.domain.ListaCategorie;
 import it.uniroma2.dicii.bd.model.domain.OggettoInAsta; // Importa il modello OggettoInAsta
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,6 +10,9 @@ import java.io.InputStreamReader;
 public class AggiungiOggettoView {
 
     private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private static final ListaCategorie categorie = new ListaCategorie();
+
+
 
     public static class DatiOggettoInput {
         private String codice;
@@ -20,7 +24,7 @@ public class AggiungiOggettoView {
         private double lunghezza;
         private double larghezza;
         private String categoria;
-        private int durata; // Durata dell'asta in giorni
+        private int durata;
 
         public String getCodice() { return codice; }
         public String getDescrizione() { return descrizione; }
@@ -49,18 +53,18 @@ public class AggiungiOggettoView {
     }
 
     public enum ConfirmOption {
-        YES, NO
+        SI, NO
     }
 
-    public static void displayHeader() {
+    public static void mostra() {
         System.out.println("\n--- AGGIUNGI NUOVO OGGETTO IN ASTA ---");
-        System.out.println("Inserisci i dettagli del tuo oggetto.");
+        System.out.println("Inserisci i dettagli dell' oggetto");
     }
 
     public static DatiOggettoInput getDatiOggetto() throws IOException, IllegalArgumentException {
         DatiOggettoInput dati = new DatiOggettoInput();
 
-        System.out.print("Inserisci Codice Oggetto (es. 1): ");
+        System.out.print("Inserisci Codice Oggetto (es. A01): ");
         String codice = reader.readLine();
         if (codice == null || codice.trim().isEmpty()) {
             throw new IllegalArgumentException("Il codice oggetto non può essere vuoto.");
@@ -121,7 +125,7 @@ public class AggiungiOggettoView {
             throw new IllegalArgumentException("La larghezza non può essere negativa.");
         }
         dati.setLarghezza(larghezza);
-
+    repeat:
         System.out.print("Inserisci Categoria (es. 'Elettronica', 'Arte', 'Libri'): ");
         String categoria = reader.readLine();
         if (categoria == null || categoria.trim().isEmpty()) {
@@ -140,15 +144,23 @@ public class AggiungiOggettoView {
             throw new IllegalArgumentException("La durata dell'asta deve essere un numero positivo di giorni.");
         }
         dati.setDurata(durata);
-
+        System.out.println("Inserisci lo stato del oggetto esempio Nuovo,Ottime condizioni.. :");
+        String stato;
+        try {
+            stato = reader.readLine();
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Input non valido per lo stato.");
+        }
+        if (stato.isEmpty()) {
+            throw new IllegalArgumentException("Lo stato non può essere null! ");
+        }
+        dati.setStato(stato);
         return dati;
+
+
     }
 
-    /**
-     * Visualizza un riepilogo dei dati dell'oggetto raccolti dall'utente.
-     *
-     * @param oggetto L'oggetto OggettoInAsta di cui visualizzare i dati.
-     */
+
     public static void displayDatiOggetto(OggettoInAsta oggetto) {
         System.out.println("\n--- Riepilogo Oggetto in Asta ---");
         System.out.println("Codice: " + oggetto.getCodice());
@@ -157,22 +169,17 @@ public class AggiungiOggettoView {
         System.out.println("Dimensioni (HxLxP): " + oggetto.getAltezza() + "x" + oggetto.getLunghezza() + "x" + oggetto.getLarghezza() + " cm");
         System.out.println("Categoria: " + oggetto.getCategoria());
         System.out.println("Durata Asta: " + oggetto.getDurata() + " giorni");
+        System.out.print("Stato oggetto:" + oggetto.getStato());
         System.out.println("----------------------------------");
     }
 
-    /**
-     * Chiede all'utente una conferma Sì/No.
-     *
-     * @param prompt La domanda da porre all'utente.
-     * @return ConfirmOption.YES se l'utente digita 's', ConfirmOption.NO se digita 'n'.
-     * @throws IOException Se si verifica un errore I/O durante la lettura dell'input.
-     */
+
     public static ConfirmOption getConfirmation(String prompt) throws IOException {
         while (true) {
             System.out.print(prompt + " (s/n): ");
             String input = reader.readLine().trim().toLowerCase();
             if (input.equals("s")) {
-                return ConfirmOption.YES;
+                return ConfirmOption.SI;
             } else if (input.equals("n")) {
                 return ConfirmOption.NO;
             } else {
@@ -181,26 +188,16 @@ public class AggiungiOggettoView {
         }
     }
 
-    /**
-     * Visualizza un messaggio di successo generico all'utente.
-     * @param message Il messaggio di successo.
-     */
     public static void displaySuccess(String message) {
         System.out.println("\n" + message);
     }
 
-    /**
-     * Visualizza un messaggio informativo generico all'utente.
-     * @param message Il messaggio informativo.
-     */
+
     public static void displayMessage(String message) {
         System.out.println(message);
     }
 
-    /**
-     * Visualizza un messaggio di errore all'utente.
-     * @param message Il messaggio di errore.
-     */
+
     public static void displayError(String message) {
         System.err.println("ERRORE: " + message);
     }

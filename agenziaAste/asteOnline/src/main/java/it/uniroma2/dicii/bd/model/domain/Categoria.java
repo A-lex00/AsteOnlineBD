@@ -5,9 +5,10 @@ public class Categoria {
     private String nome;
     private String macrocategoria;
 
-    public Categoria(){}
+    public Categoria() {
+    }
 
-    public Categoria(String nome, String macrocategoria){
+    public Categoria(String nome, String macrocategoria) {
         this.nome = nome;
         this.macrocategoria = macrocategoria;
     }
@@ -30,5 +31,11 @@ public class Categoria {
 
     public void setMacrocategoria(String macrocategoria) {
         this.macrocategoria = macrocategoria;
+    }
+
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(this.nome);
+        return this.nome;
     }
 }

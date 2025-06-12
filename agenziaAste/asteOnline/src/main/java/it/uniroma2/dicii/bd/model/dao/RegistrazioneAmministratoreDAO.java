@@ -1,7 +1,7 @@
 package it.uniroma2.dicii.bd.model.dao;
 
 import it.uniroma2.dicii.bd.exception.DAOException;
-import it.uniroma2.dicii.bd.model.domain.Credentials;
+import it.uniroma2.dicii.bd.model.domain.Credenziali;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -9,26 +9,25 @@ import java.sql.SQLException;
 
 public class RegistrazioneAmministratoreDAO implements GenericProcedureDAO<Boolean>{
 
-    public static RegistrazioneAmministratoreDAO instance = null;
+    public static RegistrazioneAmministratoreDAO registrazioneAmministratoreDAO = null;
 
     private RegistrazioneAmministratoreDAO(){
-        // Costruttore privato per il pattern Singleton
     }
 
-    public static RegistrazioneAmministratoreDAO getInstance(){
-        if(instance == null){
-            instance = new RegistrazioneAmministratoreDAO();
+    public static RegistrazioneAmministratoreDAO getRegistrazioneAmministratoreDAO(){
+        if(registrazioneAmministratoreDAO == null){
+            registrazioneAmministratoreDAO = new RegistrazioneAmministratoreDAO();
         }
-        return instance;
+        return registrazioneAmministratoreDAO;
     }
 
     @Override
-    public Boolean execute(Object... params) throws DAOException{
+    public Boolean execute(Object... params) throws DAOException {
 
-        if (params.length != 1 || !(params[0] instanceof Credentials)) {
-            throw new IllegalArgumentException("Parametri non validi per RegistrazioneAmministratoreDAO. Previsto un oggetto Credentials.");
+        if (params.length != 1 || !(params[0] instanceof Credenziali)) {
+            throw new IllegalArgumentException("Parametri non validi");
         }
-        Credentials credenziali = (Credentials) params[0];
+        Credenziali credenziali = (Credenziali) params[0];
 
 
         Connection connection = null;
@@ -53,30 +52,21 @@ public class RegistrazioneAmministratoreDAO implements GenericProcedureDAO<Boole
 
         } catch (SQLException sqlException) {
 
-            System.err.println("SQLState: " + sqlException.getSQLState());
-            System.err.println("Error Code: " + sqlException.getErrorCode());
+            System.err.println("Errore SQLState ");
 
 
             if (sqlException.getSQLState() != null && sqlException.getSQLState().startsWith("23")) {
-                throw new DAOException("Registrazione fallita: L'username '" + credenziali.getUsername() + "' è già in uso. " + sqlException.getMessage(), sqlException);
+                throw new DAOException("Registrazione fallita: username è già in uso. " );
             }
 
-            throw new DAOException("Errore SQL durante la registrazione amministratore: " + sqlException.getMessage(), sqlException);
+            throw new DAOException("Errore SQL durante la registrazione amministratore");
         } finally {
             try {
                 if (callableStatement != null) {
                     callableStatement.close();
                 }
             } catch (SQLException e) {
-                System.err.println("Errore nella chiusura del CallableStatement: " + e.getMessage());
-            }
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                System.err.println("Errore nella chiusura della Connection: " + e.getMessage());
-
+                System.err.println("Errore nella chiusura del CallableStatement ");
             }
         }
     }

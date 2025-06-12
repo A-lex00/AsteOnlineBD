@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.bd.model.dao;
 
-import it.uniroma2.dicii.bd.model.domain.Role;
+import it.uniroma2.dicii.bd.model.domain.Ruolo;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -34,7 +34,7 @@ public class ConnectionFactory {
         return connection;
     }
 
-    public static void changeRole(Role role) throws SQLException {
+    public static void changeRole(Ruolo ruolo) throws SQLException {
         connection.close();
 
         try (InputStream input = new FileInputStream("resources/db.properties")) {
@@ -42,8 +42,8 @@ public class ConnectionFactory {
             properties.load(input);
 
             String connection_url = properties.getProperty("CONNECTION_URL");
-            String user = properties.getProperty(role.name() + "_USER");
-            String pass = properties.getProperty(role.name() + "_PASS");
+            String user = properties.getProperty(ruolo.name() + "_USER");
+            String pass = properties.getProperty(ruolo.name() + "_PASS");
 
             connection = DriverManager.getConnection(connection_url, user, pass);
         } catch (IOException | SQLException e) {

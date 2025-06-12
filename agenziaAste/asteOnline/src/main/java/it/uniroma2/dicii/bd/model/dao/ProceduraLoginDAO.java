@@ -1,32 +1,32 @@
 package it.uniroma2.dicii.bd.model.dao;
 
 import it.uniroma2.dicii.bd.exception.DAOException;
-import it.uniroma2.dicii.bd.model.domain.Credentials;
-import it.uniroma2.dicii.bd.model.domain.Role;
+import it.uniroma2.dicii.bd.model.domain.Credenziali;
+import it.uniroma2.dicii.bd.model.domain.Ruolo;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
 
-public class ProceduraLoginDAO implements GenericProcedureDAO<Credentials>{
+public class ProceduraLoginDAO implements GenericProcedureDAO<Credenziali>{
 
-    private static ProceduraLoginDAO instance = null;
+    private static ProceduraLoginDAO proceduraLoginDAO = null;
     public ProceduraLoginDAO(){}
 
-    public static ProceduraLoginDAO getInstance(){
-        if(instance == null){
-            instance = new ProceduraLoginDAO();
+    public static ProceduraLoginDAO getProceduraLoginDAO(){
+        if(proceduraLoginDAO == null){
+            proceduraLoginDAO = new ProceduraLoginDAO();
         }
-        return instance;
+        return proceduraLoginDAO;
     }
 
     @Override
-    public Credentials execute(Object... params) throws DAOException{
+    public Credenziali execute(Object... params) throws DAOException{
 
         String username = (String) params[0];
         String password = (String) params[1];
-        String role;
+        String ruolo;
 
         try{
             Connection connection = ConnectionFactory.getConnection();
@@ -35,12 +35,12 @@ public class ProceduraLoginDAO implements GenericProcedureDAO<Credentials>{
             cs.setString(2, password);
             cs.registerOutParameter(3, Types.VARCHAR);
             cs.executeQuery();
-            role = cs.getString(3);
+            ruolo = cs.getString(3);
 
         } catch (SQLException sqlException) {
-            throw new DAOException("Login error: " + sqlException.getMessage());
+            throw new DAOException("Errore SQL LoginDAO");
         }
-        return new Credentials(username, password, Role.fromString(role) );
+        return new Credenziali(username, password, Ruolo.fromString(ruolo) );
     }
 
 }

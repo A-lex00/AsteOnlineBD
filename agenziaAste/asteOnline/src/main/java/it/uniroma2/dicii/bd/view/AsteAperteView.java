@@ -2,12 +2,11 @@
 package it.uniroma2.dicii.bd.view;
 
 import it.uniroma2.dicii.bd.model.domain.OggettoInAsta;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.List;
-import java.util.Scanner;
 
-public class ViewAsteAperte {
+import java.util.List;
+
+
+public class AsteAperteView {
 
 
         public static void displayAsteAperte(List<OggettoInAsta> oggetti) {

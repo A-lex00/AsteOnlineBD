@@ -10,15 +10,15 @@ import java.sql.Types;
 
 public class FaiOffertaDAO implements GenericProcedureDAO<Boolean>{
 
-    private static FaiOffertaDAO instance = null;
+    private static FaiOffertaDAO faiOffertaDAO = null;
 
     public FaiOffertaDAO(){}
 
-    public static FaiOffertaDAO getInstance(){
-        if(instance == null){
-            instance = new FaiOffertaDAO();
+    public static FaiOffertaDAO getFaiOffertaDAO(){
+        if(faiOffertaDAO == null){
+            faiOffertaDAO = new FaiOffertaDAO();
         }
-        return instance;
+        return faiOffertaDAO;
     }
 
     @Override
@@ -35,18 +35,17 @@ public class FaiOffertaDAO implements GenericProcedureDAO<Boolean>{
             cs.setDouble(2, offerta.getImporto());
             cs.setString(3, offerta.getOggetto());
 
-            // *** LOGICA MODIFICATA PER VALORE MASSIMO IMPORTO (PUÒ ESSERE NULL) ***
             if (offerta.getValoreMassimoImporto() == null) {
-                cs.setNull(4, Types.DOUBLE); // Imposta il parametro come NULL SQL di tipo DOUBLE
+                cs.setNull(4, Types.DOUBLE);
             } else {
-                cs.setDouble(4, offerta.getValoreMassimoImporto()); // Imposta il valore Double
+                cs.setDouble(4, offerta.getValoreMassimoImporto());
             }
 
             cs.execute();
 
             return true;
         } catch (SQLException sqlException) {
-            throw new DAOException("Errore inserimento offerta : " + sqlException.getMessage(), sqlException);
+            throw new DAOException("Errore inserimento offerta  ");
         }
     }
 }

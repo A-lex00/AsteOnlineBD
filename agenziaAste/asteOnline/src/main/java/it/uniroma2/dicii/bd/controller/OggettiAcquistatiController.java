@@ -5,6 +5,9 @@ import it.uniroma2.dicii.bd.model.dao.GenericProcedureDAO;
 import it.uniroma2.dicii.bd.model.domain.ListaOggetti;
 import it.uniroma2.dicii.bd.model.domain.Cliente;
 import it.uniroma2.dicii.bd.model.domain.OggettoInAsta;
+
+import java.sql.SQLException;
+
 public class OggettiAcquistatiController {
 
         private String nomeUtente;
@@ -12,18 +15,15 @@ public class OggettiAcquistatiController {
 
         public OggettiAcquistatiController(String username) {
             this.nomeUtente = username;
-            // Inizializza la DAO utilizzando il metodo getInstance()
-            this.listaOggettiAcquistatiDAO = ListaOggettiAcquistatiDAO.getInstance();
+            this.listaOggettiAcquistatiDAO = ListaOggettiAcquistatiDAO.getListaOggettiAcquistatiDAO();
         }
 
 
         public void start() {
-            System.out.println("Caricamento degli oggetti acquistati per l'utente: " + nomeUtente);
             try {
                 Cliente cliente = new Cliente();
-                cliente.setNomeUtente(nomeUtente);
+                cliente.setUsername(nomeUtente);
 
-                // Esegue la procedura DAO per ottenere la lista degli oggetti acquistati
                 ListaOggetti oggettiAcquistati = listaOggettiAcquistatiDAO.execute(cliente);
 
                 if (oggettiAcquistati != null && !oggettiAcquistati.getList().isEmpty()) {
@@ -42,9 +42,9 @@ public class OggettiAcquistatiController {
                 }
 
             } catch (DAOException e) {
-                System.err.println("Errore durante il recupero degli oggetti acquistati: " + e.getMessage());
-            } catch (Exception e) {
-                System.err.println("Si è verificato un errore inaspettato: " + e.getMessage());
+                System.err.println("Errore durante il recupero degli oggetti acquistati ");
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
         }
     }

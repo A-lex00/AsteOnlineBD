@@ -1,63 +1,60 @@
 package it.uniroma2.dicii.bd.controller;
 
-import it.uniroma2.dicii.bd.model.domain.Credentials;
+import it.uniroma2.dicii.bd.model.domain.Credenziali;
 import it.uniroma2.dicii.bd.view.ClienteView;
 
 import java.io.IOException;
 
 public class ClienteMenuController implements  Controller {
 
-    private final Credentials loggedInCredentials; // Le credenziali del cliente loggato
+    private final Credenziali loggedInCredenziali;
 
-    public ClienteMenuController(Credentials loggedInCredentials) {
-        this.loggedInCredentials = loggedInCredentials;
+    public ClienteMenuController(Credenziali loggedInCredenziali) {
+        this.loggedInCredenziali = loggedInCredenziali;
     }
 
     @Override
     public void start() {
-        if (loggedInCredentials == null) {
-            ClienteView.displayGenericError("Nessun cliente loggato. Impossibile avviare il menu.");
+        if (loggedInCredenziali == null) {
+            ClienteView.mostraErrore("Nessun cliente loggato. Impossibile avviare il menu.");
             return;
         }
 
-            ClienteView.displayWelcomeMessage(loggedInCredentials.getUsername());
+            ClienteView.messaggioBenvenuto(loggedInCredenziali.getUsername());
 
-            boolean running = true;
-            while (running) {
+            boolean flag = true;
+            while (flag) {
                 try {
-                    int choice = ClienteView.showMenu(); // Chiamata al metodo showMenu() della tua ClienteView
+                    int scelta = ClienteView.mostra();
 
-                    switch (choice) {
+                    switch (scelta) {
                         case 1: // Vedi aste aperte
                             System.out.println("Caricamento aste aperte...");
                             AsteAperteController asteAperteController = new AsteAperteController();
                             asteAperteController.start();
                             break;
                         case 2: // Vedi aste in corso
-                            AsteInCorsoController asteInCorsoController = new AsteInCorsoController(loggedInCredentials.getUsername());
+                            AsteInCorsoController asteInCorsoController = new AsteInCorsoController(loggedInCredenziali.getUsername());
                             asteInCorsoController.start();
                             break;
                         case 3: // fai offerta
-                            OfferteController offerteController = new OfferteController(loggedInCredentials.getUsername());
-                            offerteController.handleMakeOffer();
+                            OfferteController offerteController = new OfferteController(loggedInCredenziali.getUsername());
+                            offerteController.handleFaiOfferta();
                             break;
                         case 4: // vedi oggetti acquistati
-                            OggettiAcquistatiController oggettiAcquistatiController = new OggettiAcquistatiController(loggedInCredentials.getUsername());
+                            OggettiAcquistatiController oggettiAcquistatiController = new OggettiAcquistatiController(loggedInCredenziali.getUsername());
                             oggettiAcquistatiController.start();
                         case 5: //quit
-                            ClienteView.displayLogoutMessage();
-                            running = false; // Esce dal loop del menu cliente
+                            ClienteView.messaggioArrivederci();
+                            flag = false;
                             break;
                         default:
-                            ClienteView.displayGenericError("Scelta non gestita. Errore interno.");
+                            ClienteView.mostraErrore("Scelta non gestita. Errore interno.");
                             break;
                     }
                 } catch (IOException e) {
-                    ClienteView.displayGenericError("Errore di I/O nel menu cliente: " + e.getMessage());
-                    // In un'applicazione reale, potresti voler gestire questo errore in modo più robusto
-                    running = false; // Esci dal menu in caso di errore grave di I/O
-                } catch (RuntimeException e) {
-                    ClienteView.displayGenericError("Si è verificato un errore inatteso: " + e.getMessage());
+                    ClienteView.mostraErrore("Errore di I/O nel menu cliente " );
+                    flag = false;
                 }
             }
         }

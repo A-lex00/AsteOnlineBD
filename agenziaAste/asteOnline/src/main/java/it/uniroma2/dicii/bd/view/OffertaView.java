@@ -8,10 +8,9 @@ public class OffertaView {
     public static class DatiOffertaInput {
         private String codiceOggetto;
         private double importoOfferta;
-        private Double controffertaAutomatica; // *** CAMBIATO A Double ***
+        private Double controffertaAutomatica;
         private String usernameUtente;
 
-        // ... (getter e setter rimangono simili, solo i tipi cambiano) ...
         public Double getControffertaAutomatica() { return controffertaAutomatica; }
         public void setControffertaAutomatica(Double controffertaAutomatica) { this.controffertaAutomatica = controffertaAutomatica; }
 
@@ -36,31 +35,26 @@ public class OffertaView {
         dati.setCodiceOggetto(reader.readLine().trim());
 
         System.out.print("Importo della tua offerta: ");
-        double importo = readDoubleInput(); // Questo metodo va bene per l'importo base
+        double importo = readDoubleInput();
         if (importo <= 0) {
-            throw new IllegalArgumentException("L'importo dell'offerta deve essere positivo.");
+            throw new IllegalArgumentException("Importo dell'offerta non valido.");
         }
         dati.setImportoOfferta(importo);
 
-        // *** LOGICA MODIFICATA PER LA CONTROFFERTA AUTOMATICA ***
-        System.out.print("Importo per controfferta automatica (premi INVIO per nessuna controfferta, o inserisci 0 se vuoi esplicitamente zero): ");
-        // Usiamo readDoubleInputNullable per leggere un Double che può essere null
+        System.out.print("Importo per controfferta automatica (premi INVIO per impostare nessuna  controfferta): ");
+
         Double controfferta = readDoubleInputNullable();
 
-        // Se l'utente ha inserito qualcosa che si è convertito a un numero
         if (controfferta != null) {
             if (controfferta < 0) {
-                throw new IllegalArgumentException("L'importo della controfferta automatica non può essere negativo.");
+                throw new IllegalArgumentException("L'importo della controfferta automatica non valido.");
             }
         }
-        // Se controfferta è null, significa che l'utente non ha inserito nulla,
-        // quindi il valore sarà null nel DatiOffertaInput e nel modello Offerta.
         dati.setControffertaAutomatica(controfferta);
 
         return dati;
     }
 
-    // Metodo esistente per leggere double non null
     private static double readDoubleInput() throws IOException {
         while (true) {
             try {
@@ -72,12 +66,12 @@ public class OffertaView {
         }
     }
 
-    // *** NUOVO METODO: readDoubleInputNullable ***
+
     private static Double readDoubleInputNullable() throws IOException {
         while (true) {
             String inputLine = reader.readLine().trim();
             if (inputLine.isEmpty()) {
-                return null; // L'utente ha premuto INVIO, quindi è null
+                return null;
             }
             try {
                 return Double.parseDouble(inputLine);
@@ -87,7 +81,6 @@ public class OffertaView {
         }
     }
 
-
     public static void displayOffertaSuccesso() {
         System.out.println("Offerta effettuata con successo!");
     }
@@ -96,17 +89,13 @@ public class OffertaView {
         System.err.println("Errore nell'offerta: " + message);
     }
 
-    public static void displayError(String message) {
-        System.err.println(message);
-    }
-
     public static void closeReader() {
         try {
             if (reader != null) {
                 reader.close();
             }
         } catch (IOException e) {
-            System.err.println("Errore durante la chiusura del reader: " + e.getMessage());
+            System.err.println("Errore durante la chiusura del reader: ");
         }
     }
 }
