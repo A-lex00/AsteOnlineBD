@@ -5,10 +5,16 @@ lamantino
 utente
 mario.rossi
 Pa$$w0rdSicura!
-	
+
+utente
+alex
+prova	
 dbms
 utente_asta
 1234Basi
 
 admin_asta
 Basi4321
+
+login
+12Basi34

@@ -2,4 +2,6 @@ ER -manca durata in oggetto_in_asta (cambiare anche nome)
 -manca città in indirizzo spedizione
 STORED
 -manca gestione categoria
--codice ALFANUMERICO
+-trigger non funziona
+Errore database durante la gestione delle categorie: Errore SQL durante la creazione della categoria: No operations allowed after connection close
+chatSimoncino
