@@ -126,7 +126,7 @@ public class AggiungiOggettoView {
         }
         dati.setLarghezza(larghezza);
     repeat:
-        System.out.print("Inserisci Categoria (es. 'Elettronica', 'Arte', 'Libri'): ");
+        System.out.print("Inserisci Categoria (es. 'Elettronica',  'Libri'): ");
         String categoria = reader.readLine();
         if (categoria == null || categoria.trim().isEmpty()) {
             throw new IllegalArgumentException("La categoria non può essere vuota.");

@@ -41,10 +41,11 @@ public class InserimentoOggettiDAO implements GenericProcedureDAO<Boolean>{
             cs.setString(10,oggettoInAsta.getProprietario());
             cs.setDouble(11,oggettoInAsta.getImportoOffertaMassima());
             cs.setString(12, oggettoInAsta.getCodice());
+
             cs.execute();
 
         } catch (SQLException sqlException) {
-            throw new DAOException("Errore nell'inserimento dell'oggetto ");
+            throw new DAOException("Errore nell'inserimento dell'oggetto "+  sqlException.getMessage(), sqlException);
         }
         return true;
     }

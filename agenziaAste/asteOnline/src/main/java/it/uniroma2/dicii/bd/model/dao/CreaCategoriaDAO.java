@@ -22,8 +22,7 @@ public class CreaCategoriaDAO implements GenericProcedureDAO<Boolean>{
         Connection connection = null;
         CallableStatement cs = null;
 
-        try {
-            connection = ConnectionFactory.getConnection();
+
             String nomeCategoria;
             String macroCategoria = null;
             String callSql;
@@ -39,26 +38,27 @@ public class CreaCategoriaDAO implements GenericProcedureDAO<Boolean>{
             } else {
                 throw new IllegalArgumentException("Parametri non validi ");
             }
+            try{
+                connection = ConnectionFactory.getConnection();
+                cs = connection.prepareCall(callSql);
+                 cs.setString(1, nomeCategoria);
 
-            cs = connection.prepareCall(callSql);
-            cs.setString(1, nomeCategoria);
+                if (macroCategoria != null) {
+                 cs.setString(2, macroCategoria);
+                 }
 
-            if (macroCategoria != null) {
-                cs.setString(2, macroCategoria);
-            }
+                cs.execute();
 
-            cs.execute();
-            return true;
+            } catch (SQLException sqlException) {
+                System.err.println("Errore SQLState CreaCategoriaDAO " );
 
-        } catch (SQLException sqlException) {
-            System.err.println("Errore SQLState CreaCategoriaDAO " );
-
-            if (sqlException.getSQLState() != null && sqlException.getSQLState().startsWith("45")) {
-                throw new DAOException("Errore nella creazione della categoria " );
-            }
-            throw new DAOException("Errore SQL durante la creazione della categoria" );
-        } catch (IllegalArgumentException e) {
-            throw new DAOException("Errore di input nella creazione della categoria" );
-        }
+                if (sqlException.getSQLState() != null && sqlException.getSQLState().startsWith("45")) {
+                  throw new DAOException("Errore nella creazione della categoria " );
+                }
+                throw new DAOException("Errore SQL durante la creazione della categoria" );
+            }   catch (IllegalArgumentException e) {
+             throw new DAOException("Errore di input nella creazione della categoria" );
+         }
+        return true;
     }
 }

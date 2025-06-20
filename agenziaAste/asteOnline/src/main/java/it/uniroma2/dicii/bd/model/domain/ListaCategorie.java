@@ -25,7 +25,7 @@ public class ListaCategorie {
     }
     public boolean check(String stringa) {
         for (Categoria cat : lista) {
-            if (cat.getNome() == stringa) {
+            if (cat.getNome().equals(stringa)) {
                 return true;
             }
         }

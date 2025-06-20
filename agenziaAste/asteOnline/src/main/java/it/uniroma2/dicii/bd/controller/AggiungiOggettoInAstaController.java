@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 
+import static it.uniroma2.dicii.bd.view.AggiungiOggettoView.getDatiOggetto;
+
 public class AggiungiOggettoInAstaController implements Controller {
 
     private final InserimentoOggettiDAO inserimentoOggettiDAO;
@@ -30,7 +32,7 @@ public class AggiungiOggettoInAstaController implements Controller {
 
         try {
             ListaCategorie listaCategorie = categoriaDAO.execute();
-            DatiOggettoInput datiInput = AggiungiOggettoView.getDatiOggetto();
+            DatiOggettoInput datiInput = getDatiOggetto();
 
             OggettoInAsta nuovoOggetto = new OggettoInAsta();
 
@@ -41,13 +43,13 @@ public class AggiungiOggettoInAstaController implements Controller {
             nuovoOggetto.setAltezza(datiInput.getAltezza());
             nuovoOggetto.setLunghezza(datiInput.getLunghezza());
             nuovoOggetto.setLarghezza(datiInput.getLarghezza());
+            nuovoOggetto.setCategoria(datiInput.getCategoria());
             if(listaCategorie.check(datiInput.getCategoria())){
                 nuovoOggetto.setCategoria(datiInput.getCategoria());
             }
             else {
                 AggiungiOggettoView.displayError("Categoria errata");
             }
-            nuovoOggetto.setCategoria(datiInput.getCategoria());
             nuovoOggetto.setDurata(datiInput.getDurata());
             nuovoOggetto.setStato(datiInput.getStato());
 
@@ -58,6 +60,7 @@ public class AggiungiOggettoInAstaController implements Controller {
 
             nuovoOggetto.setImportoOffertaMassima(datiInput.getPrezzoBase());
             nuovoOggetto.setProprietario(null);
+            System.out.println("sottoProprietario");
 
             AggiungiOggettoView.displayDatiOggetto(nuovoOggetto);
             ConfirmOption confirm = AggiungiOggettoView.getConfirmation("Confermi l'aggiunta del oggetto in asta?");
@@ -74,13 +77,13 @@ public class AggiungiOggettoInAstaController implements Controller {
             } else {
                 AggiungiOggettoView.displayMessage("Aggiunta oggetto annullata.");
             }
-
         } catch (IOException e) {
-            AggiungiOggettoView.displayError("Errore di I/O durante l'inserimento dell'oggetto" );
+            AggiungiOggettoView.displayError("Errore di I/O durante l'inserimento dell'oggetto");
         } catch (IllegalArgumentException e) {
             AggiungiOggettoView.displayError("Dati oggetto non validi");
         } catch (DAOException e) {
-            AggiungiOggettoView.displayError("Errore database durante l'aggiunta dell'oggetto ");
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }

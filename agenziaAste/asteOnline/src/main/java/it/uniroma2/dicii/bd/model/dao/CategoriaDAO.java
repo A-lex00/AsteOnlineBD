@@ -56,8 +56,8 @@ public class CategoriaDAO implements GenericProcedureDAO<ListaCategorie> {
             return listaCategorie;
 
         } catch (SQLException sqlException) {
-            System.err.println("SQLState: " + sqlException.getSQLState());
-            System.err.println("Error Code: " + sqlException.getErrorCode());
+            System.err.println("SQLState ");
+            System.err.println("Error Code ");
             throw new DAOException("Errore SQL durante il recupero delle categorie dalla tabella 'Categoria' ");
         } catch (Exception e) {
             throw new DAOException("Errore generico durante il recupero delle categorie " );

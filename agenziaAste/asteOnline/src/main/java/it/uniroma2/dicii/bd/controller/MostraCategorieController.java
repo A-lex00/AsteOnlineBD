@@ -6,7 +6,7 @@ import it.uniroma2.dicii.bd.exception.DAOException;
 import it.uniroma2.dicii.bd.model.dao.CategoriaDAO;
 import it.uniroma2.dicii.bd.model.domain.Categoria;
 import it.uniroma2.dicii.bd.model.domain.ListaCategorie;
-import it.uniroma2.dicii.bd.view.AmministratoreView; // O una CategoriaView specifica per la visualizzazione
+import it.uniroma2.dicii.bd.view.AmministratoreView;
 
 public class MostraCategorieController implements Controller {
 

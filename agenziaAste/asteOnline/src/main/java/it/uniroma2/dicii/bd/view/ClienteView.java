@@ -12,7 +12,7 @@ public class ClienteView {
     public static int mostra() throws IOException {
         System.out.println("****************************************");
         System.out.println("* AUCTIONS AGENCY DASHBOARD: CLIENTE   *");
-        System.out.println("****************************************\n");
+        System.out.println("*****************************************");
         System.out.println("*** Seleziona un comando ***\n");
         System.out.println("1) Vedi aste aperte");
         System.out.println("2) Vedi aste in corso");
@@ -23,7 +23,7 @@ public class ClienteView {
         int choice = 0;
         boolean validInput = false;
         while (true) {
-            System.out.print("Please enter your choice: ");
+            System.out.print("Per favore inserisci la tua scelta: ");
             String inputLine = reader.readLine(); //
 
             try {
@@ -38,7 +38,6 @@ public class ClienteView {
                 System.out.println("Input non valido. Inserisci un numero intero.");
             }
         }
-
         return choice;
     }
 
